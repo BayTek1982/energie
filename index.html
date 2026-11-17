@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#05080d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Haus & Energie">
+<title>Bayazit Haus & Energie</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080d;--card:#0f1620;--card2:#0b1118;--line:#1b2532;--txt:#dfe6ef;--mut:#7f8b9c;
+ --grn:#1fcf8f;--red:#f0605d;--gold:#f5c542;--blue:#4c9aff;--lila:#b388ff;--orange:#ff9f43;--acc:var(--grn);
+ --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;--sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--txt);padding:18px 14px 40px;font-size:15.5px;line-height:1.5;
+ background-image:radial-gradient(900px 400px at 100% -10%,color-mix(in srgb,var(--acc) 9%,transparent),transparent 70%)}
+.wrap{max-width:1240px;margin:0 auto}
+a{color:var(--acc)}
+/* ---------- Kopf ---------- */
+header.kopf{margin-bottom:18px}
+.zurueck{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);text-decoration:none;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:10px;margin-bottom:16px;transition:.2s}
+.zurueck:hover{color:var(--acc);border-color:var(--acc)}
+.meta{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
+h1{font-family:var(--mono);font-weight:800;font-size:1.65rem;letter-spacing:.04em;text-transform:uppercase;color:var(--acc);text-shadow:0 0 24px color-mix(in srgb,var(--acc) 35%,transparent);line-height:1.15}
+h2{font-family:var(--mono);font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
+/* ---------- Navigation als Pillen ---------- */
+nav{display:flex;gap:8px;overflow-x:auto;margin:0 -14px 18px;padding:2px 14px 6px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex-shrink:0;background:var(--card);border:1px solid var(--line);color:var(--mut);padding:9px 14px;border-radius:12px;cursor:pointer;font-family:var(--mono);font-weight:700;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;transition:.2s}
+nav button:hover{color:var(--txt)}
+nav button.an{color:var(--acc);border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--card));box-shadow:0 0 18px color-mix(in srgb,var(--acc) 18%,transparent)}
+/* ---------- Karten ---------- */
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--acc);opacity:.85}
+.card h2{margin-bottom:14px}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+@media(min-width:700px){.kpis{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 14px 12px;position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;width:90px;height:90px;right:-30px;top:-30px;border-radius:50%;background:var(--acc);opacity:.08;filter:blur(10px)}
+.kpi .l{font-family:var(--mono);font-size:.66rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.12em}
+.kpi .w{font-family:var(--mono);font-size:1.35rem;font-weight:800;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+/* ---------- Formulare ---------- */
+.form{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+label{display:flex;flex-direction:column;gap:6px;font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+input,select,textarea{background:var(--card2);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:10px 11px;font-size:.95rem;font-family:var(--sans);letter-spacing:0;text-transform:none;font-weight:400;transition:.2s;min-width:0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 18%,transparent)}
+input[type=checkbox]{accent-color:var(--acc);width:18px;height:18px}
+textarea{min-height:70px;grid-column:1/-1}
+.full{grid-column:1/-1}
+.btn{display:inline-flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--acc) 14%,var(--card));color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 60%,transparent);padding:10px 16px;border-radius:12px;font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn:hover{background:color-mix(in srgb,var(--acc) 22%,var(--card));box-shadow:0 0 18px color-mix(in srgb,var(--acc) 22%,transparent)}
+.btn:disabled{opacity:.4;cursor:default;box-shadow:none}
+.btn.grau{background:var(--card2);color:var(--txt);border-color:var(--line)}
+.btn.grau:hover{border-color:var(--mut);box-shadow:none}
+.btn.rot{background:color-mix(in srgb,var(--red) 12%,var(--card));color:var(--red);border-color:color-mix(in srgb,var(--red) 55%,transparent)}
+.reihe{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.calc{display:flex;gap:8px;flex-wrap:wrap;font-size:.85rem;color:var(--mut);padding:6px 0}
+.calc span{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.calc b{color:var(--txt);font-family:var(--mono)}
+/* ---------- Tabellen ---------- */
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:10px 8px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-family:var(--mono);color:var(--mut);font-weight:700;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+td{font-variant-numeric:tabular-nums}
+tr.zeile{cursor:pointer;transition:.15s}tr.zeile:hover{background:var(--card2)}
+.scroll{overflow-x:auto}
+.up{color:var(--grn)}.down{color:var(--red)}
+.tag{display:inline-block;padding:3px 9px;border-radius:999px;font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--card2);border:1px solid var(--line);color:var(--mut)}
+.tag.offen{color:var(--blue);border-color:color-mix(in srgb,var(--blue) 55%,transparent)}
+.tag.frei{color:var(--grn);border-color:color-mix(in srgb,var(--grn) 55%,transparent)}
+.tag.bald{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 55%,transparent)}
+canvas{width:100%;height:240px;display:block}
+.filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.hinweis{font-size:.82rem;color:var(--mut);margin-top:10px;line-height:1.55}
+.hinweis b{color:var(--txt)}
+.leer{color:var(--mut);text-align:center;padding:26px;white-space:normal}
+.mini{font-size:.8rem;color:var(--mut)}
+.bild{max-width:100%;border-radius:12px;margin-top:8px}
+/* Infobox mit farbiger Überschrift */
+.info{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.info .k{font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:4px}
+/* Dialog */
+#dlg{position:fixed;inset:0;background:#000b;backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center;padding:14px;z-index:20}
+@media(min-width:700px){#dlg{align-items:center}}
+#dlg .card{max-width:640px;width:100%;max-height:88vh;overflow:auto;animation:hoch .3s ease}
+/* ---------- Animationen ---------- */
+@keyframes rein{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes hoch{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+section:not([hidden])>*,.kpis>*,.anim>*{animation:rein .45s cubic-bezier(.2,.7,.2,1) both}
+section:not([hidden])>*:nth-child(2),.kpis>*:nth-child(2),.anim>*:nth-child(2){animation-delay:.05s}
+section:not([hidden])>*:nth-child(3),.kpis>*:nth-child(3),.anim>*:nth-child(3){animation-delay:.1s}
+section:not([hidden])>*:nth-child(4),.kpis>*:nth-child(4),.anim>*:nth-child(4){animation-delay:.15s}
+section:not([hidden])>*:nth-child(5),.kpis>*:nth-child(5),.anim>*:nth-child(5){animation-delay:.2s}
+section:not([hidden])>*:nth-child(n+6),.kpis>*:nth-child(n+6),.anim>*:nth-child(n+6){animation-delay:.25s}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+::selection{background:color-mix(in srgb,var(--acc) 35%,transparent)}
+
+.zaehler{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.zk{background:var(--card2);border-radius:12px;padding:12px}
+.zk .t{font-weight:600;margin-bottom:4px}
+.zk .w{font-size:1.3rem;font-weight:700;margin:4px 0}
+.mini{font-size:.8rem;color:var(--mut)}
+td input{width:110px;padding:6px}
+td select{padding:6px}
+.posten{display:grid;grid-template-columns:1fr 130px 150px 150px 44px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.posten input,.posten select{width:100%}.pz{grid-column:1/-1}.pd{padding:6px 10px}
+#nkErg td{white-space:normal}
+@media(max-width:700px){.posten{grid-template-columns:1fr 1fr}.pn{grid-column:1/-1}.pm{text-align:left}.pd{justify-self:end}}
+.ergebnis{font-family:var(--mono);font-size:1.2rem;font-weight:800;padding:14px;border-radius:14px;margin-top:14px;text-align:center;text-transform:uppercase;letter-spacing:.03em;color:var(--e);border:1px solid var(--e);background:color-mix(in srgb,var(--e) 10%,var(--card2));box-shadow:0 0 22px color-mix(in srgb,var(--e) 20%,transparent)}
+@media print{nav,header a,.noprint,.btn{display:none!important}body{background:#fff;color:#000}.card{background:#fff;border:1px solid #ccc}th,td{color:#000;border-color:#ccc}input,select{border:none;background:none;color:#000}}
+</style>
+</head>
+<body style="--acc:var(--gold)">
+<div class="wrap">
+<header class="kopf"><a class="zurueck" href="https://kompassapps.de">‹ Zurück</a><div class="meta" id="meta">&nbsp;</div><h1>Haus & Energie</h1></header>
+<nav id="nav">
+ <button data-v="ablesen" class="an">📝 Ablesen</button>
+ <button data-v="verbrauch">📊 Verbrauch</button>
+ <button data-v="nk">🧾 Nebenkosten</button>
+ <button data-v="einst">⚙️ Zähler & Preise</button>
+ <button data-v="daten">💾 Sichern</button>
+</nav>
+
+<section id="v-ablesen">
+ <div class="card"><h2>Zählerstand eintragen</h2>
+ <form id="fAbl" class="form">
+  <label>Datum<input type="date" name="datum" required></label>
+  <label>Zähler<select name="zid" id="zSel"></select></label>
+  <label>Stand<input type="number" step="any" name="stand" required inputmode="decimal"></label>
+  <div class="full reihe"><button class="btn">💾 Speichern</button><span class="hinweis" id="ablInfo"></span></div>
+ </form></div>
+ <div class="zaehler" id="zKarten"></div>
+ <div class="card scroll" style="margin-top:14px"><h2>Letzte Ablesungen</h2><table id="ablTab"></table></div>
+</section>
+
+<section id="v-verbrauch" hidden>
+ <div class="filter"><select id="vZ"></select><select id="vJ"></select></div>
+ <div class="kpis" id="vKpi"></div>
+ <div class="card"><h2 id="vTitel">Verbrauch pro Monat</h2><canvas id="vChart"></canvas></div>
+ <div class="card scroll"><h2>Alle Zähler im Jahr</h2><table id="vTab"></table>
+ <p class="hinweis">Liegen Ablesungen nicht genau am Monatsende, wird der Verbrauch gleichmäßig auf die Tage dazwischen verteilt. Je öfter du abliest (z. B. jeden 1. im Monat), desto genauer.</p></div>
+</section>
+
+<section id="v-nk" hidden>
+ <div class="card"><h2>🧾 Nebenkostenabrechnung Einliegerwohnung</h2>
+ <div class="form">
+  <label>Abrechnungsjahr<select id="nkJahr"></select></label>
+  <label>Mieter<input id="nkMieter" placeholder="Name"></label>
+  <label>Wohnfläche gesamt (m²)<input type="number" id="nkFlG" step="any"></label>
+  <label>Wohnfläche Einlieger (m²)<input type="number" id="nkFlE" step="any"></label>
+  <label>Personen gesamt<input type="number" id="nkPG"></label>
+  <label>Personen Einlieger<input type="number" id="nkPE"></label>
+  <label>NK-Vorauszahlung / Monat (€)<input type="number" id="nkVZ" step="any"></label>
+  <label>Monate vermietet<input type="number" id="nkMon" min="1" max="12"></label>
+ </div></div>
+ <div class="card scroll"><h2>Kosten des ganzen Hauses</h2>
+ <div id="nkTab"></div>
+ <div class="reihe noprint" style="margin-top:10px"><button class="btn grau" id="nkPlus">➕ Kostenart hinzufügen</button></div>
+ <p class="hinweis">Verteilung: <b>Fläche</b> = nach m², <b>Personen</b> = nach Köpfen, <b>Zähler</b> = nach dem Verbrauch eines Unterzählers aus „Ablesen“, <b>Mieter 100 %</b> = zahlt der Mieter ganz, <b>Eigen</b> = nur du.</p></div>
+ <div class="card" id="nkErg"></div>
+ <div class="reihe noprint"><button class="btn" id="nkDruck">🖨️ Drucken / als PDF</button><button class="btn grau" id="nkKopie">📋 Als Text kopieren</button><span class="hinweis" id="nkInfo"></span></div>
+ <p class="hinweis">Nur eine Rechenhilfe, keine Rechtsberatung. Wichtig ist, was im Mietvertrag als umlagefähig steht. In einem Haus mit nur zwei Wohnungen, in dem du selbst wohnst, darfst du die Heizkosten laut Heizkostenverordnung auch ohne eigene Wärmezähler verteilen, wenn ihr das vereinbart habt.</p>
+</section>
+
+<section id="v-einst" hidden>
+ <div class="card scroll"><h2>⚙️ Zähler</h2><table id="zTab"></table>
+ <div class="reihe" style="margin-top:10px"><button class="btn grau" id="zPlus">➕ Zähler hinzufügen</button></div>
+ <p class="hinweis">Preis = Arbeitspreis pro Einheit (z. B. ct/kWh als Euro: 0,28). Damit rechnet die App die Kosten aus. Grundgebühren trägst du bei den Nebenkosten ein.</p></div>
+</section>
+
+<section id="v-daten" hidden><div id="sich"></div></section>
+</div>
+
+<script>/* gemeinsame Helfer */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const DB={db:null,name:"app",
+ async open(n){this.name=n;return new Promise(r=>{try{const q=indexedDB.open(n,1);q.onupgradeneeded=()=>q.result.createObjectStore("kv");q.onsuccess=()=>{this.db=q.result;r()};q.onerror=()=>r()}catch(e){r()}})},
+ async get(k){if(!this.db){try{return JSON.parse(localStorage.getItem(this.name+"_"+k))}catch(e){return null}}
+  return new Promise(r=>{const q=this.db.transaction("kv").objectStore("kv").get(k);q.onsuccess=()=>r(q.result??null);q.onerror=()=>r(null)})},
+ async set(k,v){if(!this.db){try{localStorage.setItem(this.name+"_"+k,JSON.stringify(v))}catch(e){}return}
+  return new Promise(r=>{const t=this.db.transaction("kv","readwrite");t.objectStore("kv").put(v,k);t.oncomplete=r;t.onerror=r})}
+};
+const eur=(v,d=2)=>v==null||isNaN(v)?"–":(+v).toLocaleString("de-DE",{minimumFractionDigits:d,maximumFractionDigits:d})+" €";
+const zahl=(v,d=0)=>v==null||isNaN(v)?"–":(+v).toLocaleString("de-DE",{minimumFractionDigits:d,maximumFractionDigits:d});
+const fdat=s=>s?new Date(s+"T12:00").toLocaleDateString("de-DE"):"–";
+const heute=()=>{const d=new Date();return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const tageZw=(a,b)=>Math.round((new Date(b+"T12:00")-new Date(a+"T12:00"))/864e5);
+function datei(name,inhalt,typ,info){try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([inhalt],{type:typ}));a.download=name;document.body.appendChild(a);a.click();a.remove();info&&(info.textContent="✅ Datei heruntergeladen.")}catch(e){info&&(info.textContent="Herunterladen ging nicht – nutze „Als Text kopieren“.")}}
+async function kopiere(t,info){try{await navigator.clipboard.writeText(t);info&&(info.textContent="✅ Kopiert.")}catch(e){info&&(info.textContent="Kopieren nicht möglich.")}}
+function zweimal(btn,text){if(btn.dataset.ok!=="1"){btn.dataset.ok="1";btn.dataset.alt=btn.textContent;btn.textContent=text||"Wirklich? Nochmal tippen";setTimeout(()=>{if(btn.dataset.ok==="1"){btn.dataset.ok="";btn.textContent=btn.dataset.alt}},4000);return false}btn.dataset.ok="";btn.textContent=btn.dataset.alt;return true}
+/* Sicherungs-Bereich: el = Container, getData()/setData(obj) */
+function sicherung(el,app,getData,setData){
+ el.innerHTML=`<div class="card"><h2>💾 Sicherung</h2><p class="hinweis" style="margin-bottom:12px">Deine Daten sind nur in diesem Browser gespeichert. Sichere sie ab und zu als Datei – so kannst du sie auch auf ein anderes Gerät holen.</p>
+ <div class="reihe"><button class="btn" data-a="ex">⬇️ Sicherung herunterladen</button><button class="btn grau" data-a="cp">📋 Als Text kopieren</button>
+ <label class="btn grau" style="flex-direction:row;color:var(--txt)">⬆️ Sicherung laden<input type="file" accept=".json,application/json" hidden></label></div><div class="hinweis" data-a="info"></div></div>`;
+ const info=el.querySelector('[data-a=info]');
+ const js=()=>JSON.stringify({app,datum:new Date().toISOString(),daten:getData()});
+ el.querySelector('[data-a=ex]').onclick=()=>datei(app+"-"+heute()+".json",js(),"application/json",info);
+ el.querySelector('[data-a=cp]').onclick=()=>kopiere(js(),info);
+ el.querySelector('input[type=file]').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(d.app!==app)throw 0;await setData(d.daten);info.textContent="✅ Sicherung geladen."}catch(err){info.textContent="❌ Diese Datei passt nicht zu dieser App."}};
+}
+/* Farben aus CSS lesen */
+const farbeVar=n=>getComputedStyle(document.body).getPropertyValue(n).trim()||"#1fcf8f";
+/* Pille im Diagramm: dunkler Hintergrund, farbiger Rahmen, Mono-Schrift */
+function pille(g,text,x,y,farbe,ausr="center"){g.font="700 11px 'JetBrains Mono',monospace";const w=g.measureText(text).width+14,h=20;
+ let x0=ausr==="center"?x-w/2:ausr==="right"?x-w:x;x0=Math.max(2,Math.min(x0,g.canvas.clientWidth-w-2));
+ g.fillStyle="#05080d";g.strokeStyle=farbe;g.lineWidth=1;g.beginPath();g.roundRect(x0,y-h/2,w,h,10);g.fill();g.stroke();
+ g.fillStyle=farbe;g.textBaseline="middle";g.fillText(text,x0+7,y+1);g.textBaseline="alphabetic"}
+/* Balkendiagramm im Terminal-Look */
+function balken(canvas,labels,werte,opt={}){const d=devicePixelRatio||1,W=canvas.clientWidth,H=opt.h||230;canvas.width=W*d;canvas.height=H*d;canvas.style.height=H+"px";const g=canvas.getContext("2d");g.scale(d,d);g.clearRect(0,0,W,H);
+ const acc=opt.farbe||farbeVar("--acc");
+ if(!werte.length||werte.every(v=>!v)){g.fillStyle="#7f8b9c";g.font="13px Inter,system-ui";g.fillText(opt.leer||"Noch keine Daten",10,30);return}
+ const mx=Math.max(...werte,0)*1.18||1,L=44,B=26,T=14,bw=(W-L-6)/werte.length;
+ g.font="600 10px 'JetBrains Mono',monospace";g.strokeStyle="#1b2532";g.setLineDash([3,4]);
+ for(let i=0;i<=3;i++){const v=mx*i/3,y=T+(H-T-B)*(1-i/3);g.beginPath();g.moveTo(L,y);g.lineTo(W,y);g.stroke();g.fillStyle="#7f8b9c";g.fillText(zahl(v,v<10&&mx<10?1:0),2,y+4)}
+ g.setLineDash([]);
+ const imax=werte.indexOf(Math.max(...werte));
+ werte.forEach((v,i)=>{const h=(H-T-B)*(v/mx),x=L+i*bw+bw*.18,w=bw*.64,y=H-B-h;
+  const gr=g.createLinearGradient(0,y,0,H-B);gr.addColorStop(0,acc);gr.addColorStop(1,acc+"33");
+  g.save();if(i===imax){g.shadowColor=acc;g.shadowBlur=14}g.fillStyle=gr;g.beginPath();g.roundRect(x,y,w,h,[4,4,0,0]);g.fill();g.restore();
+  g.fillStyle="#7f8b9c";g.font="600 10px 'JetBrains Mono',monospace";if(werte.length<=14||i%2===0)g.fillText(labels[i],L+i*bw+bw*.5-g.measureText(labels[i]).width/2,H-8)});
+ if(werte[imax])pille(g,(opt.fmt||zahl)(werte[imax]),L+imax*bw+bw/2,T+(H-T-B)*(1-werte[imax]/mx)-14,acc);
+}
+/* Kopfzeile: kleine graue Zeile */
+function setMeta(t){const m=document.getElementById("meta");if(m)m.textContent=t}
+
+const STD={zaehler:[
+ {id:"strom",name:"Hausstrom",einheit:"kWh",preis:0.30,ico:"💡"},
+ {id:"wp",name:"Wärmepumpe",einheit:"kWh",preis:0.25,ico:"🔥"},
+ {id:"wallbox",name:"Wallbox",einheit:"kWh",preis:0.30,ico:"🚗"},
+ {id:"stromelw",name:"Strom Einliegerwohnung",einheit:"kWh",preis:0.30,ico:"🏠"},
+ {id:"wasser",name:"Wasser Haus",einheit:"m³",preis:4.50,ico:"💧"},
+ {id:"wasserelw",name:"Wasser Einliegerwohnung",einheit:"m³",preis:4.50,ico:"🚿"}],
+ ablesungen:[],
+ nk:{flG:252,flE:55,pG:6,pE:1,vz:0,mon:12,mieter:"",posten:{}},
+ standardPosten:[
+  {n:"Grundsteuer",s:"flaeche"},{n:"Wasser & Abwasser",s:"zaehler",z:"wasserelw"},{n:"Müllabfuhr",s:"personen"},
+  {n:"Gebäudeversicherung",s:"flaeche"},{n:"Schornsteinfeger",s:"flaeche"},{n:"Heizung (Strom Wärmepumpe)",s:"flaeche"},
+  {n:"Wartung Wärmepumpe",s:"flaeche"},{n:"Niederschlagswasser",s:"flaeche"}]
+};
+let D;
+const z=id=>D.zaehler.find(x=>x.id===id);
+async function speichern(){await DB.set("daten",D);meta()}
+
+/* Navigation */
+$("#nav").onclick=e=>{const b=e.target.closest("button");if(b)zeige(b.dataset.v)};
+function zeige(v){$$("#nav button").forEach(b=>b.classList.toggle("an",b.dataset.v===v));$$("section").forEach(s=>s.hidden=s.id!=="v-"+v);
+ ({ablesen,verbrauch,nk,einst})[v]?.();location.hash=v;meta()}
+
+/* ---------- Ablesen ---------- */
+function ablesen(){
+ $("#zSel").innerHTML=D.zaehler.map(x=>`<option value="${x.id}">${x.ico||""} ${esc(x.name)}</option>`).join("");
+ if(!$("#fAbl").datum.value)$("#fAbl").datum.value=heute();
+ $("#zKarten").innerHTML=D.zaehler.map(x=>{const a=D.ablesungen.filter(r=>r.zid===x.id).sort((p,q)=>p.datum.localeCompare(q.datum));
+  const l=a[a.length-1],v=a[a.length-2];let pro="";if(l&&v){const t=tageZw(v.datum,l.datum);if(t>0)pro=`Ø ${zahl((l.stand-v.stand)/t,1)} ${x.einheit}/Tag · ca. ${eur((l.stand-v.stand)/t*30*x.preis,0)}/Monat`}
+  const alt=l?tageZw(l.datum,heute()):null;
+  return `<div class="zk"><div class="t">${x.ico||""} ${esc(x.name)}</div><div class="w">${l?zahl(l.stand,1)+" "+x.einheit:"–"}</div>
+  <div class="mini">${l?"abgelesen "+fdat(l.datum)+(alt>35?` · <span class="down">vor ${alt} Tagen</span>`:""):"noch nicht abgelesen"}</div><div class="mini">${pro}</div></div>`}).join("");
+ const L=[...D.ablesungen].sort((p,q)=>q.datum.localeCompare(p.datum)).slice(0,40);
+ $("#ablTab").innerHTML=L.length?`<tr><th>Datum</th><th>Zähler</th><th>Stand</th><th>Verbrauch seit davor</th><th></th></tr>`+L.map(r=>{const x=z(r.zid);if(!x)return"";
+  const vor=D.ablesungen.filter(a=>a.zid===r.zid&&a.datum<r.datum).sort((p,q)=>q.datum.localeCompare(p.datum))[0];
+  const d=vor?r.stand-vor.stand:null;
+  return `<tr><td>${fdat(r.datum)}</td><td>${x.ico||""} ${esc(x.name)}</td><td>${zahl(r.stand,1)} ${x.einheit}</td><td class="${d<0?"down":""}">${d!=null?zahl(d,1)+" "+x.einheit+" ("+tageZw(vor.datum,r.datum)+" Tage)":"–"}</td><td><button class="btn grau" style="padding:4px 10px" data-del="${r.id}">🗑️</button></td></tr>`}).join(""):`<tr><td class="leer">Noch keine Ablesungen.</td></tr>`;
+}
+$("#fAbl").onsubmit=async e=>{e.preventDefault();const f=e.target;const r={id:uid(),datum:f.datum.value,zid:f.zid.value,stand:+f.stand.value};
+ const vor=D.ablesungen.filter(a=>a.zid===r.zid&&a.datum<=r.datum).sort((p,q)=>q.datum.localeCompare(p.datum))[0];
+ if(vor&&r.stand<vor.stand&&$("#ablInfo").dataset.warn!=="1"){$("#ablInfo").dataset.warn="1";$("#ablInfo").innerHTML=`<span class="down">⚠️ Stand ist kleiner als zuletzt (${zahl(vor.stand,1)}). Neuer Zähler? Dann nochmal speichern.</span>`;return}
+ $("#ablInfo").dataset.warn="";D.ablesungen.push(r);await speichern();f.stand.value="";$("#ablInfo").textContent="✅ Gespeichert";
+ const i=f.zid.selectedIndex;if(i<f.zid.options.length-1)f.zid.selectedIndex=i+1;ablesen();f.stand.focus()};
+$("#ablTab").onclick=async e=>{const b=e.target.closest("[data-del]");if(!b||!zweimal(b,"Löschen?"))return;D.ablesungen=D.ablesungen.filter(r=>r.id!==b.dataset.del);await speichern();ablesen()};
+
+/* ---------- Verbrauch: auf Tage verteilen ---------- */
+function proMonat(zid){const a=D.ablesungen.filter(r=>r.zid===zid).sort((p,q)=>p.datum.localeCompare(q.datum));const m={};
+ for(let i=1;i<a.length;i++){const t=tageZw(a[i-1].datum,a[i].datum);if(t<=0)continue;const proTag=(a[i].stand-a[i-1].stand)/t;if(proTag<0)continue;
+  const d=new Date(a[i-1].datum+"T12:00");for(let k=0;k<t;k++){const key=d.toISOString().slice(0,7);m[key]=(m[key]||0)+proTag;d.setDate(d.getDate()+1)}}
+ return m}
+function jahre(){const j=new Set([String(new Date().getFullYear())]);D.ablesungen.forEach(r=>j.add(r.datum.slice(0,4)));return[...j].sort().reverse()}
+const MON=["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+function verbrauch(){
+ const vz=$("#vZ").value||D.zaehler[0]?.id,vj=$("#vJ").value||jahre()[0];
+ $("#vZ").innerHTML=D.zaehler.map(x=>`<option value="${x.id}" ${x.id===vz?"selected":""}>${x.ico||""} ${esc(x.name)}</option>`).join("");
+ $("#vJ").innerHTML=jahre().map(j=>`<option ${j===vj?"selected":""}>${j}</option>`).join("");
+ const x=z(vz);if(!x)return;const m=proMonat(vz),vm=proMonat(vz);
+ const werte=MON.map((_,i)=>m[vj+"-"+String(i+1).padStart(2,"0")]||0);
+ const vorj=MON.map((_,i)=>vm[(vj-1)+"-"+String(i+1).padStart(2,"0")]||0);
+ const sum=werte.reduce((a,b)=>a+b,0),sv=vorj.reduce((a,b)=>a+b,0);
+ const kpi=(l,w,c="")=>`<div class="kpi"><div class="l">${l}</div><div class="w ${c}">${w}</div></div>`;
+ const diff=sv?(sum-sv)/sv*100:null;
+ $("#vKpi").innerHTML=kpi("Verbrauch "+vj,zahl(sum)+" "+x.einheit)+kpi("Kosten (Arbeitspreis)",eur(sum*x.preis,0))+kpi("Vorjahr",sv?zahl(sv)+" "+x.einheit:"–")+kpi("Änderung",diff==null?"–":(diff>0?"+":"")+zahl(diff,1)+" %",diff>0?"down":"up");
+ $("#vTitel").textContent=`${x.ico||""} ${x.name} – ${x.einheit} pro Monat ${vj}`;
+ balken($("#vChart"),MON,werte,{leer:"Mindestens 2 Ablesungen nötig"});
+ $("#vTab").innerHTML=`<tr><th>Zähler</th><th>${vj}</th><th>Kosten</th><th>${vj-1}</th></tr>`+D.zaehler.map(q=>{const mm=proMonat(q.id);
+  const s=Object.entries(mm).filter(([k])=>k.startsWith(vj)).reduce((a,[,v])=>a+v,0),s2=Object.entries(mm).filter(([k])=>k.startsWith(String(vj-1))).reduce((a,[,v])=>a+v,0);
+  return `<tr><td>${q.ico||""} ${esc(q.name)}</td><td>${s?zahl(s)+" "+q.einheit:"–"}</td><td>${s?eur(s*q.preis,0):"–"}</td><td>${s2?zahl(s2)+" "+q.einheit:"–"}</td></tr>`}).join("")}
+$("#vZ").onchange=$("#vJ").onchange=verbrauch;
+
+/* ---------- Nebenkosten ---------- */
+let NJ;
+function verbrauchJahr(zid,j){return Object.entries(proMonat(zid)).filter(([k])=>k.startsWith(j)).reduce((a,[,v])=>a+v,0)}
+function posten(j){if(!D.nk.posten[j])D.nk.posten[j]=D.standardPosten.map(p=>({id:uid(),n:p.n,s:p.s,z:p.z||"",betrag:null}));return D.nk.posten[j]}
+function anteil(p,j){const n=D.nk;
+ switch(p.s){case"flaeche":return n.flG?n.flE/n.flG:0;case"personen":return n.pG?n.pE/n.pG:0;case"mieter":return 1;case"eigen":return 0;
+  case"zaehler":{const g=p.zg?verbrauchJahr(p.zg,j):null;const e=p.z?verbrauchJahr(p.z,j):0;
+   // Unterzähler Mieter ÷ Hauptzähler – sonst: Mieter-Kosten = Verbrauch × Preis, wenn kein Gesamtbetrag
+   if(g)return e/g;return null}}}
+function nk(){
+ NJ=$("#nkJahr").value||String(new Date().getFullYear()-1);
+ const js=[...new Set([...jahre(),String(new Date().getFullYear()-1),...Object.keys(D.nk.posten)])].sort().reverse();
+ $("#nkJahr").innerHTML=js.map(j=>`<option ${j===NJ?"selected":""}>${j}</option>`).join("");
+ const n=D.nk;$("#nkMieter").value=n.mieter||"";$("#nkFlG").value=n.flG;$("#nkFlE").value=n.flE;$("#nkPG").value=n.pG;$("#nkPE").value=n.pE;$("#nkVZ").value=n.vz||"";$("#nkMon").value=n.mon;
+ nkTab()}
+function nkTab(){const P=posten(NJ);const zopt=(sel)=>`<option value="">–</option>`+D.zaehler.map(x=>`<option value="${x.id}" ${x.id===sel?"selected":""}>${esc(x.name)}</option>`).join("");
+ $("#nkTab").innerHTML=P.map(p=>{
+  let a=anteil(p,NJ),mieter;
+  if(p.s==="zaehler"&&a==null){const x=z(p.z);const v=p.z?verbrauchJahr(p.z,NJ):0;mieter=x?v*x.preis:0;a=null}else mieter=(p.betrag||0)*a;
+  p._m=mieter;
+  return `<div class="posten" data-id="${p.id}"><input data-k="n" value="${esc(p.n)}" class="pn"><input data-k="betrag" type="number" step="any" value="${p.betrag??""}" placeholder="Betrag Haus €" class="pb">
+  <select data-k="s" class="ps">${[["flaeche","nach Fläche"],["personen","nach Personen"],["zaehler","nach Zähler"],["mieter","Mieter 100 %"],["eigen","nur Eigen"]].map(([v,l])=>`<option value="${v}" ${p.s===v?"selected":""}>${l}</option>`).join("")}</select>
+  <div class="pm"><b>${eur(mieter)}</b> <span class="mini">${a!=null?zahl(a*100,1)+" %":"Verbrauch × Preis"}</span></div><button class="btn grau pd" data-del>🗑️</button>
+  ${p.s==="zaehler"?`<div class="mini pz">Mieter-Zähler <select data-k="z">${zopt(p.z)}</select> · Haus-Zähler (optional) <select data-k="zg">${zopt(p.zg)}</select><br>Ohne Haus-Zähler: Mieter zahlt Verbrauch × Preis. Mit Haus-Zähler: Betrag × Anteil am Verbrauch.</div>`:""}</div>`}).join("");
+ nkErg()}
+function nkErg(){const P=posten(NJ),n=D.nk;const sum=P.reduce((a,p)=>a+(p._m||0),0),vz=(n.vz||0)*(n.mon||12),diff=sum-vz;
+ $("#nkErg").innerHTML=`<h2>Ergebnis ${NJ}${n.mieter?" – "+esc(n.mieter):""}</h2><table>
+ ${P.filter(p=>p._m).map(p=>`<tr><td>${esc(p.n)}</td><td style="text-align:right">${eur(p._m)}</td></tr>`).join("")}
+ <tr><td><b>Summe Mieter-Anteil</b></td><td style="text-align:right"><b>${eur(sum)}</b></td></tr>
+ <tr><td>abzüglich Vorauszahlungen (${n.mon||12} × ${eur(n.vz||0)})</td><td style="text-align:right">− ${eur(vz)}</td></tr></table>
+ <div class="ergebnis" style="--e:${diff>0?"var(--red)":"var(--grn)"}">${diff>0?"Nachzahlung Mieter: "+eur(diff):"Guthaben Mieter: "+eur(-diff)}</div>
+ <p class="hinweis">Neue Vorauszahlung (Vorschlag, ein Zwölftel + 5 % Puffer): <b>${eur(Math.ceil(sum/12*1.05))}</b> pro Monat</p>`}
+function nkText(){const P=posten(NJ),n=D.nk,sum=P.reduce((a,p)=>a+(p._m||0),0),vz=(n.vz||0)*(n.mon||12),diff=sum-vz;
+ return `Nebenkostenabrechnung ${NJ}\nEinliegerwohnung (${n.flE} m² von ${n.flG} m²)${n.mieter?"\nMieter: "+n.mieter:""}\n\n`+
+ P.filter(p=>p._m).map(p=>`${p.n}: ${eur(p._m)}`).join("\n")+`\n\nSumme: ${eur(sum)}\nVorauszahlungen: ${eur(vz)}\n${diff>0?"Nachzahlung: "+eur(diff):"Guthaben: "+eur(-diff)}`}
+["nkMieter","nkFlG","nkFlE","nkPG","nkPE","nkVZ","nkMon"].forEach(id=>$("#"+id).oninput=async e=>{const k={nkMieter:"mieter",nkFlG:"flG",nkFlE:"flE",nkPG:"pG",nkPE:"pE",nkVZ:"vz",nkMon:"mon"}[id];
+ D.nk[k]=id==="nkMieter"?e.target.value:+e.target.value;await speichern();nkTab()});
+$("#nkJahr").onchange=nk;
+$("#nkTab").addEventListener("change",async e=>{const tr=e.target.closest(".posten");if(!tr)return;const p=posten(NJ).find(x=>x.id===tr.dataset.id);const k=e.target.dataset.k;
+ p[k]=k==="betrag"?(e.target.value===""?null:+e.target.value):e.target.value;await speichern();nkTab()});
+$("#nkTab").addEventListener("click",async e=>{const b=e.target.closest("[data-del]");if(!b||!zweimal(b,"?"))return;const id=b.closest(".posten").dataset.id;D.nk.posten[NJ]=posten(NJ).filter(p=>p.id!==id);await speichern();nkTab()});
+$("#nkPlus").onclick=async()=>{posten(NJ).push({id:uid(),n:"Neue Kostenart",s:"flaeche",betrag:null});await speichern();nkTab()};
+$("#nkDruck").onclick=()=>{try{window.print()}catch(e){$("#nkInfo").textContent="Drucken geht hier nicht – auf deiner Seite schon."}};
+$("#nkKopie").onclick=()=>kopiere(nkText(),$("#nkInfo"));
+
+/* ---------- Zähler einstellen ---------- */
+function einst(){$("#zTab").innerHTML=`<tr><th>Symbol</th><th>Name</th><th>Einheit</th><th>Preis/Einheit (€)</th><th></th></tr>`+D.zaehler.map(x=>`<tr data-id="${x.id}">
+ <td><input data-k="ico" value="${esc(x.ico)}" style="width:50px"></td><td><input data-k="name" value="${esc(x.name)}" style="width:200px"></td>
+ <td><input data-k="einheit" value="${esc(x.einheit)}" style="width:70px"></td><td><input data-k="preis" type="number" step="any" value="${x.preis}"></td>
+ <td><button class="btn grau" style="padding:4px 10px" data-del>🗑️</button></td></tr>`).join("")}
+$("#zTab").addEventListener("change",async e=>{const tr=e.target.closest("tr[data-id]");const x=z(tr.dataset.id);const k=e.target.dataset.k;x[k]=k==="preis"?+e.target.value:e.target.value;await speichern()});
+$("#zTab").addEventListener("click",async e=>{const b=e.target.closest("[data-del]");if(!b||!zweimal(b,"Mit allen Ablesungen löschen?"))return;const id=b.closest("tr").dataset.id;
+ D.zaehler=D.zaehler.filter(x=>x.id!==id);D.ablesungen=D.ablesungen.filter(r=>r.zid!==id);await speichern();einst()});
+$("#zPlus").onclick=async()=>{D.zaehler.push({id:uid(),name:"Neuer Zähler",einheit:"kWh",preis:0.3,ico:"🔌"});await speichern();einst()};
+
+/* ---------- Start ---------- */
+(async()=>{await DB.open("haus_energie");D=(await DB.get("daten"))||structuredClone(STD);
+ sicherung($("#sich"),"haus-energie",()=>D,async d=>{D=d;await speichern()});
+ const h=location.hash.slice(1);zeige(["ablesen","verbrauch","nk","einst","daten"].includes(h)?h:"ablesen")})();
+addEventListener("resize",()=>{if(!$("#v-verbrauch").hidden)verbrauch()});
+function meta(){setMeta(`${D.zaehler.length} ZÄHLER · ${D.ablesungen.length} ABLESUNGEN`)}
+</script>
+</body>
+</html>
