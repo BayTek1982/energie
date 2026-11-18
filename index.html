@@ -373,14 +373,35 @@ $("#zTab").addEventListener("click",async e=>{const b=e.target.closest("[data-de
  D.zaehler=D.zaehler.filter(x=>x.id!==id);D.ablesungen=D.ablesungen.filter(r=>r.zid!==id);await speichern();einst()});
 $("#zPlus").onclick=async()=>{D.zaehler.push({id:uid(),name:"Neuer Zähler",einheit:"kWh",preis:0.3,ico:"🔌"});await speichern();einst()};
 
+/* ---------- Daten übernehmen (Datei, Text oder Link) ---------- */
+async function zusammenfuehren(d){
+ // Zähler gleicher ID werden übernommen, Ablesungen ohne Doppelte (gleicher Zähler + Datum)
+ for(const x of d.zaehler||[]){const i=D.zaehler.findIndex(y=>y.id===x.id);if(i>=0)D.zaehler[i]={...D.zaehler[i],...x};else D.zaehler.push(x)}
+ const da=new Set(D.ablesungen.map(a=>a.zid+"|"+a.datum));let n=0;
+ for(const a of d.ablesungen||[])if(!da.has(a.zid+"|"+a.datum)){D.ablesungen.push({id:a.id||uid(),...a});da.add(a.zid+"|"+a.datum);n++}
+ if(d.nk&&!D.nk.mieter&&!Object.keys(D.nk.posten||{}).length)D.nk=d.nk;
+ await speichern();ablesen();return n}
+async function importAusLink(){
+ if(!location.hash.startsWith("#import="))return;
+ const code=location.hash.slice(8);history.replaceState(null,"",location.pathname);
+ try{const b=Uint8Array.from(atob(code.replace(/-/g,"+").replace(/_/g,"/")),c=>c.charCodeAt(0));
+  const txt=await new Response(new Blob([b]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).text();const d=JSON.parse(txt);
+  zeige("ablesen");const box=document.createElement("div");box.className="card";box.style.borderColor="var(--acc)";
+  box.innerHTML=`<h2>📥 Daten übernehmen?</h2><p style="margin-bottom:12px">${(d.zaehler||[]).length} Zähler und ${(d.ablesungen||[]).length} Ablesungen aus deiner Excel-Liste. Vorhandene Einträge bleiben erhalten, doppelte werden übersprungen.</p>
+  <div class="reihe"><button class="btn" id="linkJa">✅ Jetzt übernehmen</button><button class="btn grau" id="linkNein">Abbrechen</button></div>`;
+  $("#v-ablesen").prepend(box);
+  $("#linkJa").onclick=async()=>{const n=await zusammenfuehren(d);box.innerHTML=`<h2>✅ Fertig</h2><p>${n} Ablesungen übernommen.</p>`;setTimeout(()=>box.remove(),4000)};
+  $("#linkNein").onclick=()=>box.remove();
+ }catch(e){alert("Der Link konnte nicht gelesen werden.")}}
+
 /* ---------- Start ---------- */
 (async()=>{await DB.open("haus_energie");D=(await DB.get("daten"))||structuredClone(STD);
  sicherung($("#sich"),"haus-energie",()=>D,async d=>{
-  // zusammenführen: Zähler gleicher ID werden übernommen, Ablesungen ohne Doppelte (gleicher Zähler + Datum)
-  for(const x of d.zaehler||[]){const i=D.zaehler.findIndex(y=>y.id===x.id);if(i>=0)D.zaehler[i]={...D.zaehler[i],...x};else D.zaehler.push(x)}
-  const da=new Set(D.ablesungen.map(a=>a.zid+"|"+a.datum));for(const a of d.ablesungen||[])if(!da.has(a.zid+"|"+a.datum)){D.ablesungen.push(a);da.add(a.zid+"|"+a.datum)}
-  if(d.nk&&!D.nk.mieter&&!Object.keys(D.nk.posten||{}).length)D.nk=d.nk;
-  await speichern();ablesen()});
+  await zusammenfuehren(d)});
+ $("#sich").insertAdjacentHTML("beforeend",`<div class="card"><h2>📋 Sicherung als Text einfügen</h2><p class="hinweis" style="margin:0 0 10px">Falls du keine Datei laden kannst: Text der Sicherung hier einfügen.</p>
+  <textarea id="textImport" style="width:100%;min-height:100px" placeholder='{"app":"haus-energie", …}'></textarea><div class="reihe" style="margin-top:10px"><button class="btn" id="textImportBtn">⬆️ Übernehmen</button><span class="hinweis" id="textImportInfo"></span></div></div>`);
+ $("#textImportBtn").onclick=async()=>{try{const j=JSON.parse($("#textImport").value);if(j.app!=="haus-energie")throw 0;const n=await zusammenfuehren(j.daten);$("#textImportInfo").textContent=`✅ ${n} Ablesungen übernommen`;$("#textImport").value=""}catch(e){$("#textImportInfo").textContent="❌ Text passt nicht zu dieser App."}};
+ await importAusLink();
  const h=location.hash.slice(1);zeige(["ablesen","verbrauch","nk","einst","daten"].includes(h)?h:"ablesen")})();
 addEventListener("resize",()=>{if(!$("#v-verbrauch").hidden)verbrauch()});
 function meta(){setMeta(`${D.zaehler.length} ZÄHLER · ${D.ablesungen.length} ABLESUNGEN`)}
